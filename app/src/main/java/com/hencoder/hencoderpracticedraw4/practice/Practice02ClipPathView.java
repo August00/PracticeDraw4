@@ -8,6 +8,8 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import androidx.annotation.Nullable;
+
+import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -38,8 +40,19 @@ public class Practice02ClipPathView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
+        Path path = new Path();
+        Path path1 = new Path();
+        path.addCircle(400,400,200, Path.Direction.CW);
+        path1.setFillType(Path.FillType.INVERSE_WINDING);
+        path1.addCircle(800,400,200, Path.Direction.CW);
+        canvas.save();
+        canvas.clipPath(path);
         canvas.drawBitmap(bitmap, point1.x, point1.y, paint);
+        canvas.restore();
+
+        canvas.save();
+        canvas.clipPath(path1);
         canvas.drawBitmap(bitmap, point2.x, point2.y, paint);
+        canvas.restore();
     }
 }
